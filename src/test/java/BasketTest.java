@@ -1,6 +1,7 @@
 import com.trendyol.shipment.Basket;
 import com.trendyol.shipment.Product;
 import com.trendyol.shipment.ShipmentSize;
+import com.trendyol.shipment.exceptions.ProductSizeInBasketCanNotBeGreaterThanFiveException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,7 +29,8 @@ class BasketTest {
 
     @ParameterizedTest
     @MethodSource("shipmentSizeOfProductsAndBasketShipmentSize")
-    void shouldGetOrderShipmentSizeAsExpected(List<ShipmentSize> shipmentSizesOfProducts, ShipmentSize orderShipmentSize) {
+    void shouldGetOrderShipmentSizeAsExpected(List<ShipmentSize> shipmentSizesOfProducts, ShipmentSize orderShipmentSize)
+            throws ProductSizeInBasketCanNotBeGreaterThanFiveException {
         final var products = shipmentSizesOfProducts.stream().map(Product::create).collect(Collectors.toList());
 
         basket.setProducts(products);
